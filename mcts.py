@@ -227,26 +227,3 @@ class MCTS:
         root = self.tree.get(0)
         print_node(root)
         print()
-
-    def print_simple_analysis(self):
-        """Muestra un análisis simple y rápido"""
-        root = self.tree.get(0)
-        children = self.tree.get_children(root)
-        
-        if not children:
-            return
-        
-        print(f"\n🔍 MCTS analizó {len(children)} movimientos con {root.data.simulations} simulaciones totales")
-        
-        # Los 3 mejores movimientos
-        sorted_children = sorted(children, key=lambda x: x.data.simulations, reverse=True)[:3]
-        
-        print("🏆 Top 3 movimientos:")
-        for i, child in enumerate(sorted_children, 1):
-            pos = child.data.move.position
-            sims = child.data.simulations
-            win_rate = (child.data.value / sims * 100) if sims > 0 else 0
-            
-            medal = ["🥇", "🥈", "🥉"][i-1]
-            print(f"   {medal} Posición {pos}: {win_rate:.1f}% de victoria ({sims} sims)")
-        print()
