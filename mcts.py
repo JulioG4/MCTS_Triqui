@@ -31,7 +31,7 @@ class MCTS:
 
     def run_search(self, iterations=50, show_progress=False):
         if show_progress:
-            print(f"\nMCTS está pensando... ({iterations} simulaciones)")
+            print(f"\nMCTS está pensando... ({iterations} iteraciones)")
             print("=" * 50)
 
         for i in range(iterations):
@@ -158,8 +158,8 @@ class MCTS:
             print("❌ No se encontraron movimientos posibles")
             return
         
-        print(f"Total de simulaciones: {root.data.simulations}")
-        print(f"Movimientos evaluados: {len(children)}")
+        # print(f"Total de iteraciones: {root.data.simulations}")
+        # print(f"Movimientos evaluados: {len(children)}")
         print()
         
         # Ordenar hijos por número de simulaciones (descendente)

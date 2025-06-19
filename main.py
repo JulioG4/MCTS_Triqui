@@ -46,7 +46,7 @@ class TriquiGame:
             try:
                 self.board.print_board()
                 print(f"\nPosiciones disponibles: {self.board.get_legal_positions()}")
-                move = input("Ingresa tu movimiento (0-8) o 'q' para salir: ").strip()
+                move = input("Ingresa tu movimiento (0-8): ").strip()
                 
                 if move.lower() == 'q':
                     return None
@@ -71,7 +71,7 @@ class TriquiGame:
         
         if result and result["move"]:
             move = result["move"]
-            print(f"La máquina juega en la posición {move.position}")
+            print(f"MCTS juega en la posición {move.position}")
             self.board.make_move(move)
             return True
         
