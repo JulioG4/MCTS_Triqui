@@ -90,7 +90,7 @@ class TriquiGame:
             return True
         elif winner == "v":
             self.board.print_board()
-            print("\n🤝 ¡Es un empate! Buen juego.")
+            print("\n¡Es un empate! Buen juego.")
             return True
         
         return False
