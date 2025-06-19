@@ -52,7 +52,7 @@ class TriquiGame:
                     return None
                 
                 move = int(move)
-                if 0 <= move <= 8:                    
+                if 0 <= move <= 8:
                     if self.board.human_make_move(move):
                         return move
                     else:
@@ -62,16 +62,12 @@ class TriquiGame:
             except ValueError:
                 print("¡Por favor ingresa un número válido!")
 
-    def make_machine_move(self, show_analysis=False, show_tree=False):
+    def make_machine_move(self, show_analysis=False):
         # print("\nLa máquina está pensando...")
         
         # MCTS para el estado actual
         current_mcts = MCTS(self.board.copy(), Player.MACHINE)
         result = current_mcts.run_search(iterations=1000, show_progress=show_analysis)
-        
-        # Mostrar estructura del árbol si se solicita
-        if show_tree:
-            current_mcts.print_tree_structure(max_depth=3)
         
         if result and result["move"]:
             move = result["move"]
@@ -94,14 +90,15 @@ class TriquiGame:
             return True
         elif winner == "v":
             self.board.print_board()
-            print("\n¡Es un empate! Buen juego.")
+            print("\n🤝 ¡Es un empate! Buen juego.")
             return True
         
         return False
 
     def play(self):
         self.print_instructions()
-          # Pregunta si quiere ver el análisis de MCTS
+        
+        # Pregunta si quiere ver el análisis de MCTS
         while True:
             analysis = input("¿Quieres ver el análisis detallado de MCTS en cada jugada? (s/n): ").lower().strip()
             if analysis in ['s', 'si', 'sí', 'y', 'yes']:
@@ -113,20 +110,6 @@ class TriquiGame:
             else:
                 print("Por favor responde 's' para sí o 'n' para no.")
         
-        # Pregunta si quiere ver la estructura del árbol de MCTS
-        show_tree = False
-        if show_analysis:
-            while True:
-                tree = input("¿También quieres ver la estructura del árbol de búsqueda MCTS? (s/n): ").lower().strip()
-                if tree in ['s', 'si', 'sí', 'y', 'yes']:
-                    show_tree = True
-                    break
-                elif tree in ['n', 'no']:
-                    show_tree = False
-                    break
-                else:
-                    print("Por favor responde 's' para sí o 'n' para no.")
-        
         while not self.game_over:
             # Turno del humano
             human_move = self.get_human_move()
@@ -137,8 +120,9 @@ class TriquiGame:
             # Verificar si el juego terminó después del movimiento humano
             if self.check_game_over():
                 break
-              # Turno de la máquina
-            if not self.make_machine_move(show_analysis, show_tree):
+            
+            # Turno de la máquina
+            if not self.make_machine_move(show_analysis):
                 print("Error: La máquina no pudo hacer un movimiento.")
                 break
             
