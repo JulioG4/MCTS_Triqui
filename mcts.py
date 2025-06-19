@@ -31,7 +31,7 @@ class MCTS:
 
     def run_search(self, iterations=50, show_progress=False):
         if show_progress:
-            print(f"\n🔍 MCTS está pensando... ({iterations} simulaciones)")
+            print(f"\nMCTS está pensando... ({iterations} simulaciones)")
             print("=" * 50)
 
         for i in range(iterations):
@@ -40,7 +40,7 @@ class MCTS:
             # Mostrar progreso cada 200 iteraciones
             if show_progress and (i + 1) % 200 == 0:
                 progress = (i + 1) / iterations * 100
-                print(f"Progreso: {progress:.0f}% ({i + 1}/{iterations})")
+                # print(f"Progreso: {progress:.0f}% ({i + 1}/{iterations})")
 
         children = self.tree.get_children(self.tree.get(0))
         if not children:
@@ -148,7 +148,7 @@ class MCTS:
 
     def print_search_results(self):
         """Muestra un resumen visual de la búsqueda MCTS"""
-        print("\n📊 RESULTADOS DE LA BÚSQUEDA MCTS")
+        print("\nRESULTADOS DE LA BÚSQUEDA MCTS")
         print("=" * 50)
         
         root = self.tree.get(0)
@@ -158,14 +158,14 @@ class MCTS:
             print("❌ No se encontraron movimientos posibles")
             return
         
-        print(f"🌳 Total de simulaciones: {root.data.simulations}")
-        print(f"🔢 Movimientos evaluados: {len(children)}")
+        print(f"Total de simulaciones: {root.data.simulations}")
+        print(f"Movimientos evaluados: {len(children)}")
         print()
         
         # Ordenar hijos por número de simulaciones (descendente)
         sorted_children = sorted(children, key=lambda x: x.data.simulations, reverse=True)
         
-        print("🎯 ANÁLISIS DE MOVIMIENTOS:")
+        print("ANÁLISIS DE MOVIMIENTOS:")
         print("-" * 50)
         print("Pos | Sims | Victorias | Tasa Win | UCB1  | Eval")
         print("-" * 50)
@@ -179,21 +179,20 @@ class MCTS:
             
             # Indicador visual
             if i == 0:
-                indicator = "👑 MEJOR"
+                indicator = "MEJOR"
             elif win_rate >= 50:
-                indicator = "✅ Bueno"
+                indicator = "Bueno"
             elif win_rate >= 25:
-                indicator = "⚠️  Regular"
+                indicator = "Regular"
             else:
-                indicator = "❌ Malo"
+                indicator = "Malo"
             
             print(f" {pos}  | {sims:4d} | {wins:8.1f} | {win_rate:7.1f}% | {ucb1_val:5.2f} | {indicator}")
         
         best_child = sorted_children[0]
         print("-" * 50)
-        print(f"🎯 DECISIÓN: Jugar en posición {best_child.data.move.position}")
-        print(f"💪 Confianza: {best_child.data.simulations} simulaciones")
-        print(f"🏆 Tasa de victoria: {(best_child.data.value / best_child.data.simulations * 100):.1f}%")
+        print(f"DECISIÓN: Jugar en posición {best_child.data.move.position}, simulaciones: {best_child.data.simulations} simulaciones")
+        print(f"Win rate: {(best_child.data.value / best_child.data.simulations * 100):.1f}%")
         print()
 
     def print_tree_structure(self, max_depth=2):

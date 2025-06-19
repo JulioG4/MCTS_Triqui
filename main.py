@@ -63,7 +63,7 @@ class TriquiGame:
                 print("¡Por favor ingresa un número válido!")
 
     def make_machine_move(self, show_analysis=False):
-        print("\nLa máquina está pensando...")
+        # print("\nLa máquina está pensando...")
         
         # MCTS para el estado actual
         current_mcts = MCTS(self.board.copy(), Player.MACHINE)
@@ -82,7 +82,7 @@ class TriquiGame:
         
         if winner == "h":
             self.board.print_board()
-            print("\n🎉 ¡FELICIDADES! ¡Le has ganado a MCTS!")
+            print("\n¡FELICIDADES! ¡Le has ganado a MCTS!")
             return True
         elif winner == "m":
             self.board.print_board()
